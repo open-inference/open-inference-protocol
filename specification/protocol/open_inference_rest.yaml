@@ -39,7 +39,7 @@ paths:
           description: OK
       operationId: get-v2-health-ready
       description: The “server ready” health API indicates if all the models are ready for inferencing. The “server ready” health API can be used directly to implement the Kubernetes readinessProbe.
-  '/v2/models/${MODEL_NAME}/versions/${MODEL_VERSION}/ready':
+  '/v2/models/{MODEL_NAME}/versions/{MODEL_VERSION}/ready':
     parameters:
       - schema:
           type: string
@@ -57,7 +57,7 @@ paths:
       responses:
         '200':
           description: OK
-      operationId: get-v2-models-$-modelName-versions-$-modelVersion-ready
+      operationId: get-v2-models-versions-ready
       description: The “model ready” health API indicates if a specific model is ready for inferencing. The model name and (optionally) version must be available in the URL. If a version is not provided the server may choose a version based on its own policies.
   /v2/:
     get:
@@ -78,7 +78,7 @@ paths:
                 $ref: '#/components/schemas/metadata_server_error_response'
       operationId: get-v2
       description: 'The server metadata endpoint provides information about the server. A server metadata request is made with an HTTP GET to a server metadata endpoint. In the corresponding response the HTTP body contains the [Server Metadata Response JSON Object](#server-metadata-response-json-object) or the [Server Metadata Response JSON Error Object](#server-metadata-response-json-error-object).'
-  '/v2/models/${MODEL_NAME}/versions/${MODEL_VERSION}':
+  '/v2/models/{MODEL_NAME}/versions/{MODEL_VERSION}':
     parameters:
       - schema:
           type: string
@@ -100,9 +100,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/metadata_model_response'
-      operationId: get-v2-models-$-modelName-versions-$-modelVersion
+      operationId: get-v2-models-versions-metadata
       description: 'The per-model metadata endpoint provides information about a model. A model metadata request is made with an HTTP GET to a model metadata endpoint. In the corresponding response the HTTP body contains the [Model Metadata Response JSON Object](#model-metadata-response-json-object) or the [Model Metadata Response JSON Error Object](#model-metadata-response-json-error-object). The model name and (optionally) version must be available in the URL. If a version is not provided the server may choose a version based on its own policies or return an error.'
-  '/v2/models/${MODEL_NAME}/versions/${MODEL_VERSION}/infer':
+  '/v2/models/{MODEL_NAME}/versions/{MODEL_VERSION}/infer':
     parameters:
       - schema:
           type: string
@@ -116,7 +116,7 @@ paths:
         required: true
     post:
       summary: Inference
-      operationId: post-v2-models-$-MODEL_NAME-versions-$-MODEL_VERSION-infer
+      operationId: post-v2-models-versions-infer
       responses:
         '200':
           description: OK
