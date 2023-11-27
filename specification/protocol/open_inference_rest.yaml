@@ -180,10 +180,11 @@ paths:
             schema:
               $ref: '#/components/schemas/inference_request'
       description: >
-        An inference request is made with an HTTP POST to an inference endpoint.
+        Send data to a model for inferencing via an [Inference Request JSON Object](#inference-request-json-object).
         Compliant servers return an [Inference Response JSON Object](#inference-response-json-object) or an [Inference Response JSON Error Object](#inference-response-json-error-object).
-        See [Inference Request Examples](#inference-request-examples) for some example HTTP/REST requests and responses.
         The model name and version must be provided in the URL.
+
+        See [Inference Request Examples](#inference-request-examples) for some example HTTP/REST requests and responses.
   '/v2/models/{MODEL_NAME}/infer':
     parameters:
       - schema:
@@ -213,10 +214,11 @@ paths:
             schema:
               $ref: '#/components/schemas/inference_request'
       description: >
-        An inference request is made with an HTTP POST to an inference endpoint.
+        Send data to a model for inferencing via an [Inference Request JSON Object](#inference-request-json-object).
         Compliant servers return an [Inference Response JSON Object](#inference-response-json-object) or an [Inference Response JSON Error Object](#inference-response-json-error-object).
-        See [Inference Request Examples](#inference-request-examples) for some example HTTP/REST requests and responses.
         The model name is provided in the URL. The server may choose a model version based on its own policies or return an error.
+
+        See [Inference Request Examples](#inference-request-examples) for some example HTTP/REST requests and responses.
 components:
   schemas:
     metadata_server_response:
