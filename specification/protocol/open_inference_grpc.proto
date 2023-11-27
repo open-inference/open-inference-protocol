@@ -67,7 +67,7 @@ message ModelReadyRequest
 
   // The version of the model to check for readiness. If not given the
   // server will choose a version based on the model and internal policy.
-  string version = 2;
+  optional string version = 2;
 }
 
 message ModelReadyResponse
@@ -97,7 +97,7 @@ message ModelMetadataRequest
 
   // The version of the model to check for readiness. If not given the
   // server will choose a version based on the model and internal policy.
-  string version = 2;
+  optional string version = 2;
 }
 
 message ModelMetadataResponse
@@ -173,7 +173,7 @@ message ModelInferRequest
 
   // The version of the model to use for inference. If not given the
   // server will choose a version based on the model and internal policy.
-  string model_version = 2;
+  optional string model_version = 2;
 
   // Optional identifier for the request. If specified will be
   // returned in the response.
