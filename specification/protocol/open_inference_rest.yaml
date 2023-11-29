@@ -19,7 +19,7 @@ info:
   description: 'https://github.com/kserve/open-inference-protocol/blob/main/specification/protocol/inference_rest.md'
   license:
     name: Apache 2.0
-    url:  'https://www.apache.org/licenses/LICENSE-2.0'
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
 servers: []
 paths:
   /v2/health/live:
@@ -27,7 +27,9 @@ paths:
       summary: Server Live
       responses:
         '200':
-          description: OK
+          description: Server is functional
+        '500':
+          description: Server is in an unhealthy state
       operationId: check-server-liveness
       description: The “server live” API indicates if the inference server is able to receive and respond to metadata and inference requests. The “server live” API can be used directly to implement the Kubernetes livenessProbe.
   /v2/health/ready:
@@ -36,7 +38,9 @@ paths:
       tags: []
       responses:
         '200':
-          description: OK
+          description: Server is ready to receive traffic
+        '503':
+          description: Server is not currently willing to receive traffic
       operationId: check-server-readiness
       description: The “server ready” health API indicates if all the models are ready for inferencing. The “server ready” health API can be used directly to implement the Kubernetes readinessProbe.
   '/v2/models/{MODEL_NAME}/versions/{MODEL_VERSION}/ready':
@@ -56,7 +60,11 @@ paths:
       tags: []
       responses:
         '200':
-          description: OK
+          description: A model with the requested name and version is ready for inferencing.
+        '404':
+          description: A model with the requested name and version is not known to this server.
+        '503':
+          description: A model with the requested name and version is not ready for inferencing.
       operationId: check-model-version-readiness
       description: The "model ready" health API indicates if a specific model is ready for inferencing. The model name and version must be provided in the URL.
   '/v2/models/{MODEL_NAME}/ready':
@@ -71,7 +79,11 @@ paths:
       tags: []
       responses:
         '200':
-          description: OK
+          description: A model with the requested name is ready for inferencing.
+        '404':
+          description: A model with the requested name is not known to this server.
+        '503':
+          description: A model with the requested name is not ready for inferencing.
       operationId: check-model-readiness
       description: >
         The "model ready" health API indicates if a specific model is ready for inferencing.
@@ -88,7 +100,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/metadata_server_response'
         '400':
-          description: Bad Request
+          description: Bad request. See the response body for details.
           content:
             application/json:
               schema:
@@ -114,11 +126,17 @@ paths:
       tags: []
       responses:
         '200':
-          description: OK
+          description: Model metadata is returned.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/metadata_model_response'
+        '400':
+          description: Bad request. See the response body for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/metadata_model_error_response'
       operationId: read-model-version-metadata
       description: >
         The per-model metadata endpoint provides information about a model.
@@ -136,11 +154,17 @@ paths:
       tags: []
       responses:
         '200':
-          description: OK
+          description: Model metadata is returned.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/metadata_model_response'
+        '400':
+          description: Bad request. See the response body for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/metadata_model_error_response'
       operationId: read-model-metadata
       description: >
         The per-model metadata endpoint provides information about a model.
@@ -163,13 +187,13 @@ paths:
       operationId: model-version-infer
       responses:
         '200':
-          description: OK
+          description: Inference completed successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/inference_response'
         '400':
-          description: Bad Request
+          description: Bad request. See the response body for details.
           content:
             application/json:
               schema:
@@ -197,13 +221,13 @@ paths:
       operationId: model-infer
       responses:
         '200':
-          description: OK
+          description: Inference completed successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/inference_response'
         '400':
-          description: Bad Request
+          description: Bad request. See the response body for details.
           content:
             application/json:
               schema:
