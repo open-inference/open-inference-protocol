@@ -21,7 +21,6 @@ info:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
 servers: []
-security: []
 paths:
   /v2/health/live:
     get:
@@ -89,7 +88,7 @@ paths:
       description: >
         The "model ready" health API indicates if a specific model is ready for inferencing.
         The model name is provided in the URL. The server may choose a model version based on its own policies.
-  /v2/:
+  /v2:
     get:
       summary: Server Metadata
       tags: []
